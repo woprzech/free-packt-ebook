@@ -42,7 +42,7 @@ function sendMessageToSlackChannel(bookInfo) {
 
     return request(options)
         .then(function (parsedBody) {
-            console.log('Wszystko porzło dobrze');
+            console.log('Wszystko poszło dobrze');
         })
         .catch(function (err) {
             console.log(err);
