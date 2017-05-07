@@ -6,17 +6,27 @@ const cheerio = require('cheerio');
 module.exports.hello = (event, context, callback) => {
     fetchPacktPage()
         .then(body => getBookInfo(body))
-        .then(bookTitle => {
-            return sendMessageToSlackChannel(bookTitle)
+        .then(bookInfo => {
+            console.log(bookInfo.photo);
+            return sendMessageToSlackChannel(bookInfo)
                 .then(() => callback(null, 'OK'));
         })
         .catch(err => callback(error, null));
 };
 
-function sendMessageToSlackChannel(message) {
+function sendMessageToSlackChannel(bookInfo) {
 
     const requestData = {
-        text: message
+        "attachments": [
+            {
+                "fallback": bookInfo.title,
+                "title": 'Dzisiejszy darmowy ebook',
+                "title_link": "https://www.packtpub.com/packt/offers/free-learning",
+                "text": bookInfo.title,
+                "image_url": bookInfo.photo,
+                "color": "#4285f4"
+            }
+        ]
     };
 
     var options = {
@@ -46,5 +56,8 @@ function fetchPacktPage() {
 
 function getBookInfo(body) {
     const $ = cheerio.load(body);
-    return $('.dotd-main-book .dotd-title h2').text();
+    return {
+        title: $('.dotd-main-book .dotd-title h2').text(),
+        photo: 'http:' + $('.dotd-main-book-image img')['0'].attribs.src
+    };
 }
