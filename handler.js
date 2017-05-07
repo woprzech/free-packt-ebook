@@ -3,9 +3,12 @@
 const request = require('request-promise');
 
 module.exports.hello = (event, context, callback) => {
-    sendMessageToSlackChannel('Hello from Lambda! :tada:')
-        .then(() => callback(null, 'OK'))
-        .catch(error => callback(error, null));
+    fetchPacktPage()
+        .then(packtPage => {
+            return sendMessageToSlackChannel(packtPage)
+                .then(() => callback(null, 'OK'));
+        })
+        .catch(err => callback(error, null));
 };
 
 function sendMessageToSlackChannel(message) {
@@ -32,4 +35,9 @@ function sendMessageToSlackChannel(message) {
         .catch(function (err) {
             console.log(err);
         });
+}
+
+function fetchPacktPage() {
+    return request('https://www.packtpub.com/packt/offers/free-learning');
+
 }
