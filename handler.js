@@ -1,11 +1,13 @@
 'use strict';
 
 const request = require('request-promise');
+const cheerio = require('cheerio');
 
 module.exports.hello = (event, context, callback) => {
     fetchPacktPage()
-        .then(packtPage => {
-            return sendMessageToSlackChannel(packtPage)
+        .then(body => getBookInfo(body))
+        .then(bookTitle => {
+            return sendMessageToSlackChannel(bookTitle)
                 .then(() => callback(null, 'OK'));
         })
         .catch(err => callback(error, null));
@@ -40,4 +42,9 @@ function sendMessageToSlackChannel(message) {
 function fetchPacktPage() {
     return request('https://www.packtpub.com/packt/offers/free-learning');
 
+}
+
+function getBookInfo(body) {
+    const $ = cheerio.load(body);
+    return $('.dotd-main-book .dotd-title h2').text();
 }
