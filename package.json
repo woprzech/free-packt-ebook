@@ -1,0 +1,23 @@
+{
+  "name": "free-packt-ebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woprzech/free-packt-ebook.git"
+  },
+  "author": "woprzech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woprzech/free-packt-ebook/issues"
+  },
+  "homepage": "https://github.com/woprzech/free-packt-ebook#readme",
+  "devDependencies": {
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  }
+}
