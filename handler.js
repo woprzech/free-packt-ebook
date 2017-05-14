@@ -23,7 +23,7 @@ function sendMessageToSlackChannel(bookInfo) {
                 "title": 'Dzisiejszy darmowy ebook',
                 "title_link": "https://www.packtpub.com/packt/offers/free-learning",
                 "text": bookInfo.title,
-                "image_url": bookInfo.photo,
+                "image_url": bookInfo.photo.replace(/ /g, "%20"),
                 "color": "#4285f4"
             }
         ]
@@ -58,6 +58,6 @@ function getBookInfo(body) {
     const $ = cheerio.load(body);
     return {
         title: $('.dotd-main-book .dotd-title h2').text(),
-        photo: $('.dotd-main-book-image img')['0'].src
+        photo: 'http:' + $('.dotd-main-book-image img')['0'].attribs.src
     };
 }
