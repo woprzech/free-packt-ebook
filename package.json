@@ -16,7 +16,7 @@
     "url": "https://github.com/woprzech/free-packt-ebook/issues"
   },
   "homepage": "https://github.com/woprzech/free-packt-ebook#readme",
-  "devDependencies": {
+  "dependencies": {
     "cheerio": "^0.22.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.0"

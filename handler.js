@@ -58,6 +58,6 @@ function getBookInfo(body) {
     const $ = cheerio.load(body);
     return {
         title: $('.dotd-main-book .dotd-title h2').text(),
-        photo: 'http:' + $('.dotd-main-book-image img')['0'].attribs.src
+        photo: '' + $('.dotd-main-book-image img')['0'].attribs.src
     };
 }
